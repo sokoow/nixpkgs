@@ -260,6 +260,8 @@ rec {
       cd ${result}
       cp layer.tar json VERSION $out
     '';
+  
+  runWithOverlay = x: lib.overrideDerivation (runWithOverlay' x) (a: { requiredSystemFeatures = []; });
 
   exportImage = { name ? fromImage.name, fromImage, fromImageName ? null, fromImageTag ? null, diskSize ? 1024 }:
     runWithOverlay {
